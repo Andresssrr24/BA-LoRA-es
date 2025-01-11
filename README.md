@@ -17,7 +17,7 @@ Large language models (LLMs) have demonstrated remarkable proficiency across var
 
 3. Create and activate a conda environment:
     ```bash
-    conda create --name ba-lora python=3.9
+    conda create --name ba-lora python=3.10
     conda activate ba-lora
     ```
 
@@ -28,9 +28,9 @@ Large language models (LLMs) have demonstrated remarkable proficiency across var
 
 ## Usage
 
-Run the script:
+For NLU Tasks:
 ```bash
-sh scripts/ba-lora.sh
+python finetune_bert_l_sst2.py 
 
 ```
 
