@@ -8,6 +8,7 @@ from transformers import (
     Trainer,
 )
 from datasets import load_dataset
+from peft import LoraConfig, get_peft_model  # Import LoRA utilities
 
 # Hyperparameters
 MODEL_PATH = "bert-large-uncased"
@@ -88,6 +89,20 @@ if __name__ == "__main__":
     # Load tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH, num_labels=2).to(DEVICE)
+
+    # Configure LoRA
+    lora_config = LoraConfig(
+        r=16,  # Rank
+        lora_alpha=32,  # Scaling factor
+        target_modules=["query", "value"],  # Apply LoRA to specific layers
+        lora_dropout=0.1,  # Dropout probability
+        bias="none"  # LoRA doesn't modify bias terms
+    )
+    
+    # Apply LoRA to the model
+    model = get_peft_model(model, lora_config)
+
+    # Load pretrained model for consistency regularization
     pretrained_model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH, num_labels=2).to(DEVICE)
     pretrained_model.eval()
 
@@ -132,7 +147,7 @@ if __name__ == "__main__":
     )
 
     # Start training
-    print("Training with regularization...")
+    print("Training with LoRA and regularization...")
     trainer_with_reg.train()
 
     # Save model
