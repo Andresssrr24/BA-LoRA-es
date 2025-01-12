@@ -10,7 +10,7 @@ from transformers import (
 from datasets import load_dataset
 
 # Hyperparameters
-MODEL_PATH = "/root/autodl-tmp/bert-large-uncased"
+MODEL_PATH = "bert-large-uncased"
 DATASET_NAME = "glue"
 TASK_NAME = "sst2"
 EPOCHS = 1
