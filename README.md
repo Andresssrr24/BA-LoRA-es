@@ -114,9 +114,13 @@ The ablation study highlights the contribution of each component in BA-LoRA:
 If you find this project useful in your research or work, please consider citing it:
 
 ```bibtex
-@article{chang2024bias,
-  title={Bias-Aware Low-Rank adaptation: Mitigating catastrophic inheritance of large language models},
-  author={Chang, Yupeng and Chang, Yi and Wu, Yuan},
-  journal={arXiv preprint arXiv:2408.04556},
-  year={2024}
+@misc{chang2025balorabiasalleviatinglowrankadaptation,
+      title={BA-LoRA: Bias-Alleviating Low-Rank Adaptation to Mitigate Catastrophic Inheritance in Large Language Models}, 
+      author={Yupeng Chang and Yi Chang and Yuan Wu},
+      year={2025},
+      eprint={2408.04556},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2408.04556}, 
 }
+
