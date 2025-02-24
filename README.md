@@ -1,53 +1,75 @@
-## BA-LoRA: Bias-Alleviating Low-Rank Adaptation to Mitigate Catastrophic Inheritance in Large Language Models
+
+# BA-LoRA: Bias-Alleviating Low-Rank Adaptation for Mitigating Catastrophic Inheritance in Large Language Models
 
 ## Abstract
-Large language models (LLMs) have demonstrated remarkable proficiency across various natural language processing (NLP) tasks. However, adapting LLMs to downstream applications requires computationally intensive and memory-demanding fine-tuning procedures. To alleviate these burdens, parameter-efficient fine-tuning (PEFT) techniques have emerged as a promising approach to tailor LLMs with minimal computational overhead. While PEFT methods offer substantial advantages, they do not fully address the pervasive issue of bias propagation from pre-training data. This work introduces Bias-Alleviating Low-Rank Adaptation (BA-LoRA), a novel PEFT method designed to counteract bias inheritance. BA-LoRA incorporates three distinct regularization terms: (1) a consistency regularizer, (2) a diversity regularizer, and (3) a singular value decomposition regularizer. These regularizers aim to enhance the models' consistency, diversity, and generalization capabilities during fine-tuning. We conduct extensive experiments on natural language understanding (NLU) and natural language generation (NLG) tasks using prominent LLMs such as LLaMA, Mistral, and Gemma. The results demonstrate that BA-LoRA outperforms LoRA and its state-of-the-art variants. Moreover, our method effectively mitigates the adverse effects of pre-training bias, leading to more reliable and robust model outputs.
+
+Large language models (LLMs) have achieved remarkable success across a wide range of natural language processing (NLP) tasks. However, adapting these models to downstream applications often requires computationally expensive and memory-intensive fine-tuning processes. To address this challenge, parameter-efficient fine-tuning (PEFT) techniques have emerged as an effective solution for tailoring LLMs with minimal computational overhead.
+
+While PEFT methods offer significant advantages, they do not fully resolve the pervasive issue of bias propagation from pre-training data. This work introduces **Bias-Alleviating Low-Rank Adaptation (BA-LoRA)**, a novel PEFT method designed to counteract bias inheritance during fine-tuning. BA-LoRA incorporates three distinct regularization terms:
+
+1. **Consistency Regularizer**: Ensures stable and consistent model behavior.
+2. **Diversity Regularizer**: Encourages diverse representations to improve generalization.
+3. **Singular Value Decomposition (SVD) Regularizer**: Enhances the robustness of low-rank adaptations.
+
+These regularizers collectively enhance the consistency, diversity, and generalization capabilities of the model during fine-tuning. We conduct extensive experiments on both **natural language understanding (NLU)** and **natural language generation (NLG)** tasks using prominent LLMs such as **LLaMA**, **Mistral**, and **Gemma**. The results demonstrate that BA-LoRA outperforms **LoRA** and its state-of-the-art variants while effectively mitigating the adverse effects of pre-training bias, leading to more reliable and robust model outputs.
+
+---
 
 ## Setup
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/cyp-jlu-ai/BA-LoRA.git
-    ```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/cyp-jlu-ai/BA-LoRA.git
+```
 
-2. Navigate to the directory:
-    ```bash
-    cd BA-LoRA
-    ```
+### 2. Navigate to the Project Directory
+```bash
+cd BA-LoRA
+```
 
-3. Create and activate a conda environment:
-    ```bash
-    conda create --name ba-lora python=3.10
-    conda activate ba-lora
-    ```
+### 3. Create and Activate a Conda Environment
+```bash
+conda create --name ba-lora python=3.10
+conda activate ba-lora
+```
 
-4. Install required packages:
-    ```bash
-    conda install nvidia/label/cuda-12.4.0::cuda-toolkit
-    conda install pytorch==2.4.0 torchvision=0.19.0 pytorch-cuda=12.4 -c pytorch -c nvidia
-    pip install -r requirements.txt
-    pip install flash-attn --no-build-isolation
-    ```
+### 4. Install Required Dependencies
+```bash
+# Install CUDA toolkit
+conda install nvidia/label/cuda-12.4.0::cuda-toolkit
+
+# Install PyTorch and related libraries
+conda install pytorch==2.4.0 torchvision=0.19.0 pytorch-cuda=12.4 -c pytorch -c nvidia
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Install Flash Attention
+pip install flash-attn --no-build-isolation
+```
+
+---
 
 ## Usage
 
-### For NLG Tasks:
-
+### For Natural Language Generation (NLG) Tasks:
+Run the following script to fine-tune the model for NLG tasks:
 ```bash
 sh scripts/ba-lora.sh
-
 ```
 
-### For NLU Tasks:
-
+### For Natural Language Understanding (NLU) Tasks:
+Execute the following command to fine-tune the model for NLU tasks:
 ```bash
-python finetune_bert_l_sst2.py 
-
+python finetune_bert_l_sst2.py
 ```
+
+---
 
 ## Main Results
 
 ### For NLG Tasks:
+The table below summarizes the performance of BA-LoRA compared to other methods on various NLG benchmarks:
 
 | **Models**       | **Methods** | **#Params** | **GSM8K**            | **MATH**             | **HumanEval**        | **MBPP**             | **MT-Bench**         | **Avg**  |
 |-------------------|-------------|-------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|----------|
@@ -65,6 +87,7 @@ python finetune_bert_l_sst2.py
 |                  | **BA-LoRA** | **200M**    | **78.13±0.25**        | **32.25±25**          | **54.44±0.15**        | **66.25±0.33**        | **5.73±0.07**         | **47.36**|
 
 ### For NLU Tasks:
+The table below compares BA-LoRA's performance with other methods on NLU benchmarks:
 
 | **Methods** | **#Params** | **MNLI**         | **SST-2**           | **MRPC**          | **CoLA**          | **QNLI**          | **QQP**           | **RTE**           | **SST-B**         | **Avg**  |
 |-------------|-------------|------------------|---------------------|-------------------|-------------------|-------------------|-------------------|-------------------|-------------------|----------|
@@ -79,22 +102,30 @@ python finetune_bert_l_sst2.py
 | PiSSA       | 1.33M       | 90.47±0.44       | 95.81±0.45          | _91.48±0.49_      | _72.27±0.29_      | 94.41±0.41        | 92.21±0.26        | 87.14±0.08        | _91.93±0.25_      | _89.47_  |
 | BA-LoRA     | 1.33M       | **90.92±0.38**   | _96.25±0.09_        | **91.83±0.25**    | **72.79±0.42**    | **94.84±0.26**    | **92.59±0.18**    | **87.87±0.31**    | **92.15±0.08**    | **89.91**|
 
-### t-SNE Visualization：
-![image](https://github.com/user-attachments/assets/3515d674-2bef-45b4-b5e0-4c104d98c255)
+---
+
+### t-SNE Visualization
+The t-SNE visualization below demonstrates the improved clustering and representation quality achieved by BA-LoRA:
+
+![t-SNE Visualization](https://github.com/user-attachments/assets/3515d674-2bef-45b4-b5e0-4c104d98c255)
+
+---
 
 ### Ablation Study
-![image](https://github.com/user-attachments/assets/d602c6dd-9bd3-4a7c-9cac-6194a85d28a6)
+The ablation study highlights the contribution of each component in BA-LoRA:
 
+![Ablation Study](https://github.com/user-attachments/assets/d602c6dd-9bd3-4a7c-9cac-6194a85d28a6)
+
+---
 
 ## Citation
 
 If you find this project useful in your research or work, please consider citing it:
 
-```
+```bibtex
 @article{chang2024bias,
   title={Bias-Aware Low-Rank adaptation: Mitigating catastrophic inheritance of large language models},
   author={Chang, Yupeng and Chang, Yi and Wu, Yuan},
   journal={arXiv preprint arXiv:2408.04556},
   year={2024}
 }
-```
