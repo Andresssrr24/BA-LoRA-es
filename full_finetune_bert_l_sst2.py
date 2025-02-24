@@ -54,19 +54,10 @@ class CustomTrainer(Trainer):
         self.pretrained_model = pretrained_model
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
-        # Convert inputs to a mutable dictionary
-        inputs = {k: v for k, v in inputs.items()}
-        
-        # Extract labels and inputs
-        labels = inputs.pop("labels")
-        input_ids = inputs["input_ids"]
-        attention_mask = inputs["attention_mask"]
-
-        # Forward pass
-        outputs = model(input_ids, attention_mask=attention_mask)
+        outputs = model(**inputs)
         logits = outputs.logits
-        task_loss_fn = nn.CrossEntropyLoss()
-        task_loss = task_loss_fn(logits, labels)
+
+        task_loss = outputs["loss"] if isinstance(outputs, dict) else outputs[0]
 
         # Regularization losses
         with torch.no_grad():
