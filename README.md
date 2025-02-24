@@ -28,11 +28,20 @@ Large language models (LLMs) have demonstrated remarkable proficiency across var
 
 ## Usage
 
+For NLG Tasks:
+```bash
+sh scripts/ba-lora.sh
+
+```
+
 For NLU Tasks:
 ```bash
 python finetune_bert_l_sst2.py 
 
 ```
+
+
+
 
 ## Citation
 
