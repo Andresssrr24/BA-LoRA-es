@@ -23,7 +23,10 @@ Large language models (LLMs) have demonstrated remarkable proficiency across var
 
 4. Install required packages:
     ```bash
+    conda install nvidia/label/cuda-12.4.0::cuda-toolkit
+    conda install pytorch==2.4.0 torchvision=0.19.0 pytorch-cuda=12.4 -c pytorch -c nvidia
     pip install -r requirements.txt
+    pip install flash-attn --no-build-isolation
     ```
 
 ## Usage
