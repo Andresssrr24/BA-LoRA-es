@@ -120,17 +120,29 @@ The table below compares BA-LoRA's performance with other methods on NLU benchma
 
 ---
 
+---
+
+### Various Ranks
+Performance Comparison of Full Fine-Tuning, LoRA, PiSSA, and BA-LoRA Across Different Ranks:
+
+![t-SNE Visualization](./assets/various_ranks.png)
+
+---
+
 ### t-SNE Visualization
-The t-SNE visualization below demonstrates the improved clustering and representation quality achieved by BA-LoRA:
+t-SNE Visualizations Comparing Last Hidden Layer Features of BERT-L and GPT-2-XL Fine-Tuned with LoRA and BA-LoRA on the MNLI task of GLUE:
 
 ![t-SNE Visualization](./assets/t-sne.png)
 
 ---
 
 ### Ablation Study
-The ablation study highlights the contribution of each component in BA-LoRA:
+Ablation Study of BA-LoRA Regularizations on GSM8K, MATH, and NLU Tasks. 
+    Here, “$\mathrm{Reg}$“ denotes “Regularization“, and “$\mathit{w/o}\ \mathrm{Reg}$“ indicates “without regularization“. 
+    $\mathcal{L}_{\mathrm{CR}}$, $\mathcal{L}_{\mathrm{DR}}$, and $\mathcal{L}_{\mathrm{SVDR}}$ represent the application of only the corresponding regularization, 
+    while “BA-LoRA“ refers to the baseline using all regularizations:
 
-![Ablation Study](https://github.com/user-attachments/assets/d602c6dd-9bd3-4a7c-9cac-6194a85d28a6)
+![Ablation Study](./assets/ablation.png)
 
 ---
 
