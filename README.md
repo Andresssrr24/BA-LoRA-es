@@ -137,9 +137,9 @@ t-SNE Visualizations Comparing Last Hidden Layer Features of BERT-L and GPT-2-XL
 ---
 
 ### Ablation Study
-Ablation Study of BA-LoRA Regularizations on GSM8K, MATH, and NLU Tasks. Here, "Reg" denotes "Regularization", and "*w/o Reg*" indicates "without regularization".  
-`L_CR`, `L_DR`, and `L_SVDR` represent the application of only the corresponding regularization,  
-while "BA-LoRA" refers to the baseline using all regularizations:
+Ablation Study of BA-LoRA Regularizations on GSM8K, MATH, and NLU Tasks. Here, “$$\mathrm{Reg}$$” denotes “Regularization”, and “$$\mathit{w/o}\ \mathrm{Reg}$$” indicates “without regularization”.  
+$$\mathcal{L}_{\mathrm{CR}}$$, $$\mathcal{L}_{\mathrm{DR}}$$, and $$\mathcal{L}_{\mathrm{SVDR}}$$ represent the application of only the corresponding regularization,  
+while “BA-LoRA” refers to the baseline using all regularizations:
 
 ![Ablation Study](./assets/ablation.png)
 
