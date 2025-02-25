@@ -123,7 +123,7 @@ The table below compares BA-LoRA's performance with other methods on NLU benchma
 ### t-SNE Visualization
 The t-SNE visualization below demonstrates the improved clustering and representation quality achieved by BA-LoRA:
 
-![t-SNE Visualization](https://github.com/user-attachments/assets/3515d674-2bef-45b4-b5e0-4c104d98c255)
+![t-SNE Visualization](./assets/tsne.png)
 
 ---
 
