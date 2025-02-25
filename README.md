@@ -55,6 +55,31 @@ Execute the following command to fine-tune the model for NLU tasks:
 python finetune_bert_l_sst2.py
 ```
 
+#### Visualizing Last Hidden Layer Features with t-SNE
+
+After fine-tuning the model for NLU tasks, you can visualize the last hidden layer features using t-SNE to analyze class separability in the feature space.
+
+1. **Prepare Data**:
+   - Save the last hidden layer features and labels as `.npy` files:
+     - `features_step_final.npy`: Features.
+     - `labels_step_final.npy`: Labels.
+
+2. **Run Script**:
+   - Update paths in `tsne_visualization.py`:
+     ```python
+     last_hidden_features_dir = '/path/to/last_hidden_features'
+     output_dir = './output'
+     step = 'final'
+     ```
+   - Run:
+     ```bash
+     python tsne_visualization.py
+     ```
+
+3. **Output**:
+   - The t-SNE plot (`tsne_step_final.pdf`) will be saved in the specified `output_dir`.
+
+
 ---
 
 ## Main Results
