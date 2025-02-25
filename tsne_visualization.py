@@ -1,9 +1,6 @@
 """
 t-SNE Visualization Script
-Performs t-SNE dimensionality reduction on the last hidden layer features from fine-tuning and generates a visualization plot.
-
-Usage:
-    Modify the `last_hidden_features_dir`, `output_dir`, and `step` variables below to configure the script.
+Performs t-SNE dimensionality reduction on the last hidden layer features and generates a 2D plot.
 """
 
 import os
@@ -13,13 +10,13 @@ import matplotlib.pyplot as plt
 
 
 # Configuration variables
-last_hidden_features_dir = '/path/to/last_hidden_features'  # Directory where the pre-saved last hidden layer features and labels are stored
-output_dir = os.getcwd()                                   # Directory to save the output plot (default: current working directory)
-step = 'final'                                             # Step name for loading feature and label files
+last_hidden_features_dir = '/path/to/last_hidden_features'  # Path to pre-saved features and labels
+output_dir = './output'                                     # Output directory for the plot
+step = 'final'                                              # Step name for loading files
 
 
 def load_data(features_dir, step):
-    """Load pre-saved last hidden layer features and corresponding labels."""
+    """Load pre-saved last hidden layer features and labels."""
     features_file = os.path.join(features_dir, f'features_step_{step}.npy')
     labels_file = os.path.join(features_dir, f'labels_step_{step}.npy')
 
@@ -31,7 +28,7 @@ def load_data(features_dir, step):
 
 
 def perform_tsne(features):
-    """Perform t-SNE dimensionality reduction on the last hidden layer features."""
+    """Perform t-SNE dimensionality reduction."""
     print("Performing t-SNE dimensionality reduction...")
     tsne = TSNE(n_components=2, random_state=42, n_jobs=1)
     return tsne.fit_transform(features)
@@ -52,6 +49,7 @@ def plot_tsne(features_2d, labels, output_dir, step):
     ax.legend(handles, class_names, fontsize=12, loc='upper left', bbox_to_anchor=(0.01, 0.99))
 
     # Save plot
+    os.makedirs(output_dir, exist_ok=True)
     output_file = os.path.join(output_dir, f'tsne_step_{step}.pdf')
     plt.savefig(output_file, bbox_inches='tight', pad_inches=0.1)
     plt.close()
@@ -67,10 +65,10 @@ def main():
     warnings.filterwarnings("ignore", message="Could not find the number of physical cores")
 
     try:
-        # Load pre-saved last hidden layer features and labels
+        # Load data
         features, labels = load_data(last_hidden_features_dir, step)
 
-        # Perform t-SNE dimensionality reduction
+        # Perform t-SNE
         features_2d = perform_tsne(features)
 
         # Generate and save t-SNE plot
