@@ -12,9 +12,7 @@ Large language models (LLMs) have demonstrated remarkable proficiency across var
 
 ---
 
-## Installation
-
-### Environment Setup
+## 📦 Environment Setup
 ```bash
 git clone https://github.com/llm172/BA-LoRA.git
 cd BA-LoRA
@@ -32,21 +30,23 @@ pip install flash-attn --no-build-isolation
 
 ---
 
-## Usage
+## 🚀 Quick Start
 
 ### For Natural Language Generation (NLG) Tasks:
-Run the following script to fine-tune the model for NLG tasks:
+
 ```bash
+# Start training with default parameters
 sh scripts/ba-lora.sh
 ```
 
 ### For Natural Language Understanding (NLU) Tasks:
-Execute the following command to fine-tune the model for NLU tasks:
+
 ```bash
+# Fine-tuning bert-l on SST-2 dataset
 python finetune_bert_l_sst2.py
 ```
 
-#### Visualizing Last Hidden Layer Features with t-SNE
+### Visualizing Last Hidden Layer Features with t-SNE
 
 After fine-tuning the model for NLU tasks, you can visualize the last hidden layer features using t-SNE to analyze class separability in the feature space.
 
@@ -72,7 +72,7 @@ After fine-tuning the model for NLU tasks, you can visualize the last hidden lay
 
 ---
 
-## Main Results
+## 📊 Main Results
 ### For NLG Tasks:
 The table below summarizes the performance of BA-LoRA compared to other methods on various NLG benchmarks:
 
@@ -130,7 +130,7 @@ Ablation Study of BA-LoRA Regularizations on GSM8K, MATH, and NLU Tasks. Here, $
 
 ---
 
-## Citation
+## 📄 Citation
 
 If you find this project useful in your research or work, please consider citing it:
 
@@ -146,8 +146,9 @@ If you find this project useful in your research or work, please consider citing
 }
 
 ```
+---
 
-## License
+## 📜 License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ---
