@@ -70,7 +70,6 @@ After fine-tuning the model for NLU tasks, you can visualize the last hidden lay
 ---
 
 ## Main Results
-
 ### For NLG Tasks:
 The table below summarizes the performance of BA-LoRA compared to other methods on various NLG benchmarks:
 
@@ -104,8 +103,6 @@ The table below compares BA-LoRA's performance with other methods on NLU benchma
 | AdaLoRA     | 1.27M       | _90.87±0.08_     | 96.18±0.43          | 90.81±0.40        | _71.64±0.12_      | _94.68±0.46_      | _92.37±0.35_      | _87.78±0.36_      | 91.97±0.43        | _89.53_  |
 | PiSSA       | 1.33M       | 90.47±0.44       | 95.81±0.45          | _91.48±0.49_      | _72.27±0.29_      | 94.41±0.41        | 92.21±0.26        | 87.14±0.08        | _91.93±0.25_      | _89.47_  |
 | BA-LoRA     | 1.33M       | **90.92±0.38**   | _96.25±0.09_        | **91.83±0.25**    | **72.79±0.42**    | **94.84±0.26**    | **92.59±0.18**    | **87.87±0.31**    | **92.15±0.08**    | **89.91**|
-
----
 
 ---
 
@@ -145,3 +142,9 @@ If you find this project useful in your research or work, please consider citing
       url={https://arxiv.org/abs/2408.04556}, 
 }
 
+```
+
+## License
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+---
