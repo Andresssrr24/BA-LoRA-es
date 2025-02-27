@@ -9,40 +9,24 @@
 Large language models (LLMs) have demonstrated remarkable proficiency across various natural language processing (NLP) tasks. However, adapting LLMs to downstream applications requires computationally intensive and memory-demanding fine-tuning procedures. To alleviate these burdens, parameter-efficient fine-tuning (PEFT) techniques have emerged as a promising approach to tailor LLMs with minimal computational overhead. While PEFT methods offer substantial advantages, they do not fully address the pervasive issue of bias propagation from pre-training data. This work introduces Bias-Alleviating Low-Rank Adaptation (BA-LoRA), a novel PEFT method designed to counteract bias inheritance. BA-LoRA incorporates three distinct regularization terms: (1) a consistency regularizer, (2) a diversity regularizer, and (3) a singular value decomposition regularizer. These regularizers aim to enhance the models’ consistency, diversity, and generalization capabilities during fine-tuning. We conduct extensive experiments on natural language understanding (NLU) and natural language generation (NLG) tasks using prominent LLMs such as LLaMA, Mistral, and Gemma. The results demonstrate that BA-LoRA outperforms LoRA and its state-of-the-art variants. Moreover, the extended experiments demonstrate that our method effectively mitigates the adverse effects of pre-training bias, leading to more reliable and robust model outputs.
 
 
-## Setup
+## Installation
 
-### 1. Clone the Repository
+### Environment Setup
 ```bash
 git clone https://github.com/llm172/BA-LoRA.git
-```
-
-### 2. Navigate to the Project Directory
-```bash
 cd BA-LoRA
-```
 
-### 3. Create and Activate a Conda Environment
-```bash
-conda create --name ba-lora python=3.10
+conda create -n ba-lora python=3.10 -y
 conda activate ba-lora
-```
 
-### 4. Install Required Dependencies
-```bash
-# Install CUDA toolkit
-conda install nvidia/label/cuda-12.4.0::cuda-toolkit
-
-# Install PyTorch and related libraries
-conda install pytorch==2.4.0 torchvision=0.19.0 pytorch-cuda=12.4 -c pytorch -c nvidia
-
-# Install Python dependencies
+# Install core dependencies
+conda install pytorch==2.4.0 torchvision==0.19.0 pytorch-cuda=12.4 -c pytorch -c nvidia
 pip install -r requirements.txt
 
-# Install Flash Attention
+# Optional: Install Flash Attention for acceleration
 pip install flash-attn --no-build-isolation
 ```
 
----
 
 ## Usage
 
