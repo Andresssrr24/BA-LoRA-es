@@ -10,7 +10,7 @@ Large language models (LLMs) have demonstrated remarkable proficiency across var
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/cyp-jlu-ai/BA-LoRA.git
+git clone [https://github.com/cyp-jlu-ai/BA-LoRA.git](https://github.com/llm172/BA-LoRA.git)
 ```
 
 ### 2. Navigate to the Project Directory
