@@ -1,7 +1,7 @@
 BASE_MODEL="meta-llama/Llama-2-7b"
 RES_MODEL="output/Llama-2-7b-r128"
 OUTPUT_PATH="output/metamath-Llama-2-7b-r128"
-DATA_PATH="pissa-dataset"
+DATA_PATH="cyp123/ba-lora"
 
 if [ -e $RES_MODEL ]; then
     echo "Use pre-initialized residual model."
