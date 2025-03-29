@@ -26,7 +26,7 @@ from transformers import (
 )
 from datasets import load_dataset
 from peft import LoraConfig, get_peft_model
-from regularizations import compute_regularization_losses  
+from nlg_regularizations import compute_regularization_losses  
 
 IGNORE_INDEX = -100
 logger = logging.getLogger(__name__)
