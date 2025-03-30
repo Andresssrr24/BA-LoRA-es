@@ -55,24 +55,26 @@ class CustomTrainer(Trainer):
         self.pretrained_model = pretrained_model
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
+        input_ids = inputs["input_ids"].to(self.pretrained_model.device)
+        attention_mask = inputs["attention_mask"].to(self.pretrained_model.device)
+
         outputs = model(**inputs)
         logits = outputs.logits
+        task_loss = outputs.loss
 
-        task_loss = outputs["loss"] if isinstance(outputs, dict) else outputs[0]
-
-        # Regularization losses
         with torch.no_grad():
-            pretrained_outputs = self.pretrained_model(input_ids, attention_mask=attention_mask)
+            pretrained_outputs = self.pretrained_model(
+                input_ids=input_ids,
+                attention_mask=attention_mask
+            )
             pretrained_logits = pretrained_outputs.logits
 
         cr_loss = consistency_regularization(pretrained_logits, logits)
         dr_loss = diversity_regularization(logits)
         svd_loss = svd_regularization(logits, k=5)
 
-        # Total loss
         loss = task_loss + lambda_cr * cr_loss + lambda_dr * dr_loss + lambda_svdr * svd_loss
 
-        # Return the computed loss
         return (loss, outputs) if return_outputs else loss
 
 # Main function
