@@ -55,7 +55,7 @@ class CustomTrainer(Trainer):
         self.pretrained_model = pretrained_model
 
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
-                outputs = model(**inputs)
+        outputs = model(**inputs)
         logits = outputs.logits
 
         task_loss = outputs["loss"] if isinstance(outputs, dict) else outputs[0]
