@@ -11,7 +11,7 @@ Large language models (LLMs) have demonstrated remarkable proficiency across var
 
 ---
 
-## 📦 Environment Setup
+## Environment Setup
 ```bash
 git clone https://github.com/llm172/BA-LoRA.git
 cd BA-LoRA
@@ -29,7 +29,7 @@ pip install flash-attn --no-build-isolation
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### For Natural Language Generation (NLG) Tasks:
 
@@ -71,7 +71,7 @@ After fine-tuning the model for NLU tasks, you can visualize the last hidden lay
 
 ---
 
-## 📊 Main Results
+## Main Results
 ### For NLG Tasks:
 The table below summarizes the performance of BA-LoRA compared to other methods on various NLG benchmarks:
 
@@ -129,7 +129,7 @@ Ablation Study of BA-LoRA Regularizations on GSM8K, MATH, and NLU Tasks. Here, $
 
 ---
 
-## 📄 Citation
+## Citation
 
 If you find this project useful in your research or work, please consider citing it:
 
