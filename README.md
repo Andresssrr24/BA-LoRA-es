@@ -1,7 +1,6 @@
 
 # BA-LoRA: Bias-Alleviating Low-Rank Adaptation for Mitigating Catastrophic Inheritance in Large Language Models
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![arXiv](https://img.shields.io/badge/arXiv-2408.04556-b31b1b.svg)](https://arxiv.org/abs/2408.04556)
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
 [![PyTorch 2.4.0](https://img.shields.io/badge/pytorch-2.4.0-red)](https://pytorch.org/)
