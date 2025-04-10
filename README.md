@@ -148,7 +148,7 @@ If you find this project useful in your research or work, please consider citing
 ```
 ---
 
-## 📜 License
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+## Acknowledgement
+The project is built upon [PiSSA](https://github.com/GraphPKU/PiSSA)
 
 ---
