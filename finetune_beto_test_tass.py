@@ -113,21 +113,21 @@ if __name__ == "__main__":
         example['label'] = label2id[example['label']]
         return example
     dataset = dataset.map(encode_labels)    
-    #train_dataset = dataset["train"]
-    #val_dataset = dataset["validation"]
+    train_dataset = dataset["train"]
+    val_dataset = dataset["validation"]
 
     # Preprocess dataset
     train_dataset = train_dataset.map(preprocess_function, batched=True)
     val_dataset = val_dataset.map(preprocess_function, batched=True)
     train_dataset = train_dataset.remove_columns(["tweet_id", "text"])
     val_dataset = val_dataset.remove_columns(["tweet_id", "text"])
-    train_dataset.set_format(type="torch", columns=["input_ids", "attention_mask", "labels"])
-    val_dataset.set_format(type="torch", columns=["input_ids", "attention_mask", "labels"])
+    train_dataset.set_format(type="torch", columns=["input_ids", "attention_mask", "label"])
+    val_dataset.set_format(type="torch", columns=["input_ids", "attention_mask", "label"])
 
     # Training arguments
     training_args = TrainingArguments(
         output_dir="./fine_tuned_model",
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",
         save_strategy="epoch",
         learning_rate=LEARNING_RATE,
         per_device_train_batch_size=BATCH_SIZE,
@@ -139,6 +139,7 @@ if __name__ == "__main__":
         save_total_limit=1,
         load_best_model_at_end=True,
         report_to="none",
+        metric_for_best_model='runtime',
     )
 
     # Trainer with regularization
