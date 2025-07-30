@@ -195,8 +195,10 @@ if __name__ == "__main__":
         from torch.utils.data import DataLoader
         val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
         features_concat, labels_concat = save_features_labels(model, val_loader, DEVICE)
-        np.save("features_step_final.npy", features_concat)
-        np.save("labels_step_final.npy", labels_concat)
+        
+        os.makedirs("./last_hidden_features", exist_ok=True)
+        np.save("./last_hidden_features/features_step_final.npy", features_concat)
+        np.save("./last_hidden_features/labels_step_final.npy", labels_concat)
 
         print("Features and labels from last hidden layer saved")
 
