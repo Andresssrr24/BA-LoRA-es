@@ -1,6 +1,7 @@
 import os
 import torch
 import torch.nn as nn
+import numpy as np
 from transformers import (
     AutoTokenizer,
     AutoModelForSequenceClassification,
@@ -12,8 +13,9 @@ from peft import LoraConfig, get_peft_model  # Import LoRA utilities
 
 # Hyperparameters
 MODEL_PATH = "dccuchile/bert-base-spanish-wwm-uncased"
+FINETUNED_MODEL_PATH = "./fine_tuned_model"
 DATASET_NAME = "TASS_DATASET_POLARITY"
-#TASK_NAME = "sst2"
+SAVE_LAST_LABELS_AND_FEATURES = False
 EPOCHS = 1
 BATCH_SIZE = 32
 LEARNING_RATE = 5e-5
@@ -50,6 +52,34 @@ def svd_regularization(outputs, k=5):
     top_k_singular_values = s[:k]
     total_singular_values = torch.sum(s)
     return -torch.sum(top_k_singular_values) / total_singular_values
+
+# Save features and labels from last hidden layer as .npy
+def save_features_labels(model, validation_data, device):
+    features_l = []
+    labels_l = []
+
+    model.eval()
+    with torch.no_grad():
+        for batch in validation_data:
+            input_ids = batch['input_ids'].to(device)
+            attention_mask = batch["attention_mask"].to(device)
+            labels = batch['label']
+
+            # Get hidden states
+            outputs = model(input_ids=input_ids, attention_mask=attention_mask, output_hidden_states=True)
+            last_hidden = outputs.hidden_states[-1] # (batch, seq_len, hidden_dim)
+            
+            # Mean of token embeddings
+            sentence_embeddings = last_hidden.mean(dim=1) # (batch, hidden_dim)
+
+            features_l.append(sentence_embeddings.cpu())
+            labels_l.append(labels.cpu())
+        
+    # Concatenate extracted features and labels
+    features_concat = torch.cat(features_l, dim=0).numpy()
+    labels_concat = torch.cat(labels_l, dim=0).numpy()
+
+    return features_concat, labels_concat
 
 # Custom Trainer
 class CustomTrainer(Trainer):
@@ -157,6 +187,17 @@ if __name__ == "__main__":
     trainer_with_reg.train()
 
     # Save model
-    model.save_pretrained("./fine_tuned_model")
-    tokenizer.save_pretrained("./fine_tuned_model")
-    print("Model saved to ./fine_tuned_model")
+    model.save_pretrained(FINETUNED_MODEL_PATH)
+    tokenizer.save_pretrained(FINETUNED_MODEL_PATH)
+    print(F"Model saved to {FINETUNED_MODEL_PATH}")
+
+    if SAVE_LAST_LABELS_AND_FEATURES:
+        from torch.utils.data import DataLoader
+        val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
+        features_concat, labels_concat = save_features_labels(model, val_loader, DEVICE)
+        np.save("features_step_final.npy", features_concat)
+        np.save("labels_step_final.npy", labels_concat)
+
+        print("Features and labels from last hidden layer saved")
+
+

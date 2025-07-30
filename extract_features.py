@@ -5,6 +5,7 @@ from torch.utils.data import DataLoader
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 DATASET_NAME = "TASS_DATASET_POLARITY"
 VAL_DATASET = f'/content/{DATASET_NAME}/tass_train_dev/dev.tsv'
+ADAPTER_MODEL_PATH = "./fine_tuned_model"
 
 print("Extracting features and labels...")
 
