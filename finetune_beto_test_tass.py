@@ -26,7 +26,7 @@ lambda_dr = 0.01
 lambda_svdr = 0.01
 
 # Map labels
-label2id = {'N': 0, 'P': 1, 'NEU': 2}
+#label2id = {'N': 0, 'P': 1, 'NEU': 2}
 
 # Preprocess function
 def preprocess_function(examples):
@@ -139,10 +139,13 @@ if __name__ == "__main__":
         }, delimiter="\t" )
 
     # map labels to numbers
-    def encode_labels(example):
-        example['label'] = label2id[example['label']]
+    def map_to_subjectivity(example):
+        if example['label'] in ['P', 'N']:
+            example['label'] = 'SUBJ' # Subjective
+        elif example['label'] = 'NEU':
+            example['label'] = 'OBJ' # Objective
         return example
-    dataset = dataset.map(encode_labels)    
+    dataset = dataset.map(map_to_subjectivity)    
     train_dataset = dataset["train"]
     val_dataset = dataset["validation"]
 
@@ -189,17 +192,15 @@ if __name__ == "__main__":
     # Save model
     model.save_pretrained(FINETUNED_MODEL_PATH)
     tokenizer.save_pretrained(FINETUNED_MODEL_PATH)
-    print(F"Model saved to {FINETUNED_MODEL_PATH}")
+    print(f"Model saved to {FINETUNED_MODEL_PATH}")
 
     if SAVE_LAST_LABELS_AND_FEATURES:
         from torch.utils.data import DataLoader
         val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
         features_concat, labels_concat = save_features_labels(model, val_loader, DEVICE)
-        
+
         os.makedirs("./last_hidden_features", exist_ok=True)
         np.save("./last_hidden_features/features_step_final.npy", features_concat)
         np.save("./last_hidden_features/labels_step_final.npy", labels_concat)
 
         print("Features and labels from last hidden layer saved")
-
-

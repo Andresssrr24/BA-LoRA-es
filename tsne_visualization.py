@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 
 # Configuration variables
-last_hidden_features_dir = '/path/to/last_hidden_features'  # Path to pre-saved features and labels
-output_dir = './output'                                     # Output directory for the plot
+last_hidden_features_dir = './last_hidden_features'  # Path to pre-saved features and labels
+output_dir = './tsne_plot'                                     # Output directory for the plot
 step = 'final'                                              # Step name for loading files
 
 
@@ -37,7 +37,7 @@ def perform_tsne(features):
 def plot_tsne(features_2d, labels, output_dir, step):
     """Generate and save the t-SNE visualization plot."""
     print("Generating t-SNE plot...")
-    label_mapping = {0: 'Entailment', 1: 'Neutral', 2: 'Contradiction'}
+    label_mapping = {'OBJ': 0, 'SUBJ': 1}
 
     fig, ax = plt.subplots(figsize=(8, 6), dpi=300)
     scatter = ax.scatter(features_2d[:, 0], features_2d[:, 1], c=labels, cmap='jet', alpha=0.5)
