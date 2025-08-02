@@ -37,7 +37,7 @@ def perform_tsne(features):
 def plot_tsne(features_2d, labels, output_dir, step):
     """Generate and save the t-SNE visualization plot."""
     print("Generating t-SNE plot...")
-    label_mapping = {0: 'Entailment', 1: 'Neutral', 2: 'Contradiction'}
+    label_mapping = {0: 'Subjective', 1: 'Objective'}
 
     fig, ax = plt.subplots(figsize=(8, 6), dpi=300)
     scatter = ax.scatter(features_2d[:, 0], features_2d[:, 1], c=labels, cmap='jet', alpha=0.5)

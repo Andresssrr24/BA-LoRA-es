@@ -14,7 +14,7 @@ from peft import LoraConfig, get_peft_model  # Import LoRA utilities
 # Hyperparameters
 MODEL_PATH = "dccuchile/bert-base-spanish-wwm-uncased"
 FINETUNED_MODEL_PATH = "./fine_tuned_model"
-DATASET_NAME = "TASS_DATASET_POLARITY"
+DATASET_NAME = "dataset"
 SAVE_LAST_LABELS_AND_FEATURES = False
 EPOCHS = 1
 BATCH_SIZE = 32
@@ -26,7 +26,7 @@ lambda_dr = 0.01
 lambda_svdr = 0.01
 
 # Map labels
-label2id = {'N': 0, 'P': 1, 'NEU': 2}
+#label2id = {'N': 0, 'P': 1, 'NEU': 2}
 
 # Preprocess function
 def preprocess_function(examples):
@@ -134,15 +134,10 @@ if __name__ == "__main__":
 
     # Load dataset
     dataset = load_dataset('csv', data_files={
-        'train': f'/content/{DATASET_NAME}/tass_train_dev/train.tsv',
-        'validation': f'/content/{DATASET_NAME}/tass_train_dev/dev.tsv'
+        'train': f'/content/{DATASET_NAME}/train.tsv',
+        'validation': f'/content/{DATASET_NAME}/dev.tsv'
         }, delimiter="\t" )
-
-    # map labels to numbers
-    def encode_labels(example):
-        example['label'] = label2id[example['label']]
-        return example
-    dataset = dataset.map(encode_labels)    
+   
     train_dataset = dataset["train"]
     val_dataset = dataset["validation"]
 
@@ -189,17 +184,15 @@ if __name__ == "__main__":
     # Save model
     model.save_pretrained(FINETUNED_MODEL_PATH)
     tokenizer.save_pretrained(FINETUNED_MODEL_PATH)
-    print(F"Model saved to {FINETUNED_MODEL_PATH}")
+    print(f"Model saved to {FINETUNED_MODEL_PATH}")
 
     if SAVE_LAST_LABELS_AND_FEATURES:
         from torch.utils.data import DataLoader
         val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE)
         features_concat, labels_concat = save_features_labels(model, val_loader, DEVICE)
-        
+
         os.makedirs("./last_hidden_features", exist_ok=True)
         np.save("./last_hidden_features/features_step_final.npy", features_concat)
         np.save("./last_hidden_features/labels_step_final.npy", labels_concat)
 
         print("Features and labels from last hidden layer saved")
-
-
